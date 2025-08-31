@@ -85,7 +85,9 @@ function App() {
     setMessage('');
 
     try {
-      const response = await axios.post('/api/send-emails', {
+      // Set your backend API base URL here
+      const API_BASE_URL = 'https://email-sender-mvp.vercel.app';
+      const response = await axios.post(`${API_BASE_URL}/api/send-emails`, {
         subject: subject.trim(),
         content: content.trim(),
         senderName: senderName.trim(),

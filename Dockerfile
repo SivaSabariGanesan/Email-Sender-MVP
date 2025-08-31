@@ -18,4 +18,4 @@ EXPOSE 8080
 ENV PYTHONPATH=/app
 
 # Start the app with Gunicorn
-CMD ["gunicorn", "backend.app:app", "-b", "0.0.0.0:${PORT:-8080}"]
+CMD gunicorn backend.app:app -b 0.0.0.0:${PORT:-8080}

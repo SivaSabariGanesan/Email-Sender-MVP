@@ -14,5 +14,5 @@ COPY backend/ ./backend/
 # Expose port (default Flask/Gunicorn port)
 EXPOSE 8000
 
-# Start the app with Gunicorn
-CMD ["gunicorn", "backend.app:app", "-b", "0.0.0.0:8000"]
+# Start the app with Gunicorn, using the PORT env variable if set
+CMD exec gunicorn backend.app:app -b 0.0.0.0:${PORT:-8000}

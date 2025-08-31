@@ -125,6 +125,4 @@ def health_check():
     return jsonify({'status': 'healthy'})
 
 if __name__ == '__main__':
-    # Only run app.run() if not on Vercel
-    if not os.environ.get('VERCEL'):  # Vercel sets this env var
-        app.run(port=5000)
+ye    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))

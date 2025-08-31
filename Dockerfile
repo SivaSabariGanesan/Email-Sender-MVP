@@ -5,14 +5,17 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy requirements and install dependencies
-COPY backend/requirements.txt ./
+COPY backend/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy backend code
-COPY backend/ ./backend/
+COPY backend ./backend
 
-# Expose port (default Flask/Gunicorn port)
-EXPOSE 8000
+# Expose Railway's default port
+EXPOSE 8080
 
-# Start the app with Gunicorn, using the PORT env variable if set
-CMD exec gunicorn backend.app:app -b 0.0.0.0:${PORT:-8000}
+# Set PYTHONPATH so Gunicorn can find backend module
+ENV PYTHONPATH=/app
+
+# Start the app with Gunicorn
+CMD ["gunicorn", "backend.app:app", "-b", "0.0.0.0:${PORT:-8080}"]
